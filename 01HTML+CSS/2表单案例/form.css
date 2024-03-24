@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #000;
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    /* // 滚动条的轨道的两端按钮，允许通过点击微调小方块的位置。 */
+    ::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    /* // 滚动条里面的小方块，能向上向下移动（或往左往右移动，取决于是垂直滚动条还是水平滚动条） */
+    ::-webkit-scrollbar-thumb {
+        background: rgba(168, 166, 168, 0.6);
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    /* // 边角，即两个滚动条的交汇处 */
+    ::-webkit-scrollbar-corner {
+        display: none;
+    }
+
+    /* // 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件 */
+    ::-webkit-resizer {
+        display: none;
+    }
+}
+
+.content {
+    background: #fff;
+    padding: 20px;
+    width: 400px;
+    margin: 100px auto 0;
+    border-radius: 8px;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.form-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* height: 36px; */
+    width: 100%;
+}
+
+textarea,
+input:not([type="radio" i], [type="checkbox" i]) {
+    outline: none;
+    width: 100%;
+    height: 36px;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #a8a6a8;
+}
+
+textarea,
+input:not([type="radio" i], [type="checkbox" i]):focus {
+    border-color: rgb(36, 51, 184);
+}
+
+textarea {
+    height: 100px;
+}
+
+.code {
+    width: 200px !important;
+}
+
+button {
+    height: 36px;
+    width: 120px;
+    border: none;
+    cursor: pointer;
+    background: rgb(36, 51, 184);
+    color: #fff;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: rgba(36, 51, 184, 0.8);
+}
+
+button:active {
+    background: rgba(36, 51, 184, 1);
+}
+
+button:disabled {
+    background: rgba(36, 51, 184, 0.5);
+    cursor: not-allowed;
+}
+
+select {
+    width: 100%;
+    border: 1px solid #a8a6a8;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.policy {
+    /* 相邻元素为行元素时用 */
+    vertical-align: 2px;
+}
+
+/* input+span  input 后面的第一个兄弟元素 */
+/* input后面的兄弟元素 */
+label input ~ span {
+    color: #aaa;
+}
+
+label input:checked ~ span {
+    color: #000;
+}
+
+input::placeholder {
+    color: #ccc;
+}
+
+/* 左浮动 */
+.left {
+    float: left;
+}
+/* 右浮动 */
+.right {
+    float: right;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+}

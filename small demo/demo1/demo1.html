@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            position: relative;
+        }
+
+        img {
+            position: absolute;
+            left: 506px;
+            top: -16px;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 跨页面移动 -->
+    <img class="card" draggable="false" src="./image.png" alt="">
+
+    <script>
+        const card = document.querySelector('.card')
+        console.log('card', card);
+        function barHeight() {
+            return window.outerHeight - window.innerHeight
+        }
+
+        function clientToScreen(x, y) {
+            const sx = x + window.screenX
+            const sy = y + window.screenY + barHeight()
+            return [sx, sy]
+        }
+
+        function screenToClient(x, y) {
+            const cx = x - window.screenX
+            const cy = y - window.screenY - barHeight()
+            return [cx, cy]
+        }
+        const channel = new BroadcastChannel('card')
+        channel.onmessage = e => {
+            console.log(e);
+            const [x, y] = screenToClient(...e.data)
+            card.style.left = x + 'px'
+            card.style.top = y + 'px'
+        }
+        card.onmousedown = e => {
+            let x = e.pageX - card.offsetLeft
+            let y = e.pageY - card.offsetTop
+            window.onmousemove = e => {
+                const cx = e.pageX - x
+                const cy = e.pageY - y
+                card.style.left = cx + 'px'
+                card.style.top = cy + 'px'
+                const points = clientToScreen(cx, cy)
+                channel.postMessage(points)
+            }
+            window.onmouseup = () => {
+                window.onmousemove = null
+                window.onmouseup = null
+            }
+        }
+
+        +function () {
+            var url = new URL(location.href)
+            var type = url.searchParams.get('type') || '1'
+            card.src = `./image.png`
+        }()
+    </script>
+</body>
+
+</html>
