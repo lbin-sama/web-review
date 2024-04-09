@@ -143,7 +143,6 @@ console.log('原型=============================================================
 // var u2 = new User('zs', 18)
 // var u3 = new User('lisa', 18)
 
-
 // console.log([u1, u2, u3], u1.sayHi() === u2.sayHi()) // true
 
 /*
@@ -217,3 +216,54 @@ u1.sayHi === u2.sayHi = true
 
 // var myDeck = new Deck()
 // myDeck.show()
+
+console.log('this================================================================================')
+/*
+JS中，this关键字在不同的场景，指代的含义不同，全局作用域，函数作用域两个的this
+    在全局代码中使用this，指代全局对象(在真实开发中，很少在全局代码中使用this)
+
+    在函数代码中使用this，它的指向取决于函数是如何被调用的
+    调用方式            实例                    函数中的this指向
+    通过new调用         new method()            新对象
+    直接调用            method()                全局对象
+    通过对象调用        obj.method()            前面的对象
+    call               method.call(ctx)        call的第一个参数
+    apply              method.apply(ctx)       apply的第一个参数
+*/
+
+function User(name, age) {
+    this.name = name
+    this.age = age
+    // 上述this指向谁，无法说清，只有调用的时候才知道（即运行时
+    console.log(this)
+}
+
+new User(1, 1) // new调用，指向User产生的对象 User
+User() // 直接调用，指向全局对象，window
+
+var obj = {
+    a: 1,
+    method: function () {
+        console.log(this)
+    },
+    b: {
+        a1: 2,
+        method: function () {
+            console.log(this)
+        }
+    }
+}
+
+obj.method() // 通过对象调用，指向前面的对象 obj
+obj.b.method() // 通过对象调用，指向前面的对象 b
+var test = obj.b.method
+test() // 直接调用，指向全局对象，window
+
+function m(a, b) {
+    console.log(this, a, b)
+}
+
+var arr = [1, 2, 3]
+m.call(arr, 1, 2) // m.call() 也是调用函数，相当于m()，但是可以更改this指向，这里this指向arr
+
+m.apply(arr, [1, 2]) // m.apply()与m.call()相同，就是参数传递不一样，需要用数组包起来
