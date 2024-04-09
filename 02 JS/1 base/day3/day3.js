@@ -127,6 +127,93 @@ var sum = new Function('a', 'b', 'return a + b') // 参数，参数，函数体
 
 console.log('原型================================================================================')
 
+// function User(name, age) {
+//     this.name = name
+//     this.age = age
+//     // this.sayHi = function () {
+//     //     console.log('Hi, I am ' + this.name + '. I am' + this.age)
+//     // }
+// }
+
+// User.prototype.sayHi = function () {
+//     console.log('Hi, I am '+ this.name + '. I am ' + this.age)
+// }
+
+// var u1 = new User('shen su yi', 18)
+// var u2 = new User('zs', 18)
+// var u3 = new User('lisa', 18)
+
+
+// console.log([u1, u2, u3], u1.sayHi() === u2.sayHi()) // true
+
 /*
+u1.sayHi === u2.sayHi = true
+上述代码中，通过构造函数创建用户对象
+    缺陷：没有用户对象中都含有一个sayHi方法，对于每个用户而言sayHi是完全一样的没必要为它们单独生成，
+        当对象多起来，单独生成会造成内存空间的浪费
+    解决：原型
+
+原型（例图：同文件夹下prototype.png）所有函数都有，但通常只在构造函数上使用
+    每个函数都会自动附带一个属性prototype，该属性的值是一个普通对象，称之为原型对象
+实例
+    instance，通过new产生的对象称之为实例
+    由于JS所有对象都是通过new产生的，因此严格来说JS中所有对象都称之为实例
+隐式原型
+    每个实例都拥有一个特殊的属性__proto__，称之为隐式原型，它指向构造函数的原型
+    u1.__proto === User.prototype
+意义
+    当访问实例成员时，先找自身，如果不存在，会自动从隐式原型中寻找
+    如此，可以把公共成员，放到函数原型中，即可以被所有实例共享
 
 */
+
+/* 
+    使用原型重构之前的扑克牌程序
+*/
+
+// function Deck() {
+//     // 一幅扑克牌
+//     this.cards = []
+
+//     for (let i = 0; i < 52; i++) {
+//         this.cards.push(new Poker((i % 13) + 1, Math.floor(i / 13) + 1)) // 向下取整Math.floor
+//     }
+
+//     this.cards.push(new Poker(0, 0))
+//     this.cards.push(new Poker(0, 1))
+// }
+
+// Deck.prototype.show = function () {
+//     for (let i = 0; i < this.cards.length; i++) {
+//         this.cards[i].show()
+//     }
+// }
+
+// /**
+//  * 一张扑克牌
+//  * @param {*} num 数字，0 鬼
+//  * @param {*} decor 花色，0 小鬼，1 大鬼
+//  */
+// function Poker(num, decor) {
+//     this.num = num
+//     this.decor = decor
+// }
+
+// Poker.prototype.show = function () {
+//     const num = this.num
+//     const decor = this.decor
+//     var value
+//     if (num === 0) {
+//         value = decor === 0 ? '小鬼' : '大鬼'
+//         console.log(value);
+//         return
+//     }
+
+//     const color = ['♠', '♥', '♣', '♦']
+//     const number = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+//     value = color[decor - 1] + '' + number[num - 1]
+//     console.log(value);
+// }
+
+// var myDeck = new Deck()
+// myDeck.show()
