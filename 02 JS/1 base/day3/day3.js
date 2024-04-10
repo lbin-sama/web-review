@@ -231,39 +231,152 @@ JS中，this关键字在不同的场景，指代的含义不同，全局作用�
     apply              method.apply(ctx)       apply的第一个参数
 */
 
-function User(name, age) {
-    this.name = name
-    this.age = age
-    // 上述this指向谁，无法说清，只有调用的时候才知道（即运行时
-    console.log(this)
-}
+// function User(name, age) {
+//     this.name = name
+//     this.age = age
+//     // 上述this指向谁，无法说清，只有调用的时候才知道（即运行时
+//     console.log(this)
+// }
 
-new User(1, 1) // new调用，指向User产生的对象 User
-User() // 直接调用，指向全局对象，window
+// new User(1, 1) // new调用，指向User产生的对象 User
+// User() // 直接调用，指向全局对象，window
 
-var obj = {
-    a: 1,
-    method: function () {
-        console.log(this)
-    },
-    b: {
-        a1: 2,
-        method: function () {
-            console.log(this)
-        }
-    }
-}
+// var obj = {
+//     a: 1,
+//     method: function () {
+//         console.log(this)
+//     },
+//     b: {
+//         a1: 2,
+//         method: function () {
+//             console.log(this)
+//         }
+//     }
+// }
 
-obj.method() // 通过对象调用，指向前面的对象 obj
-obj.b.method() // 通过对象调用，指向前面的对象 b
-var test = obj.b.method
-test() // 直接调用，指向全局对象，window
+// obj.method() // 通过对象调用，指向前面的对象 obj
+// obj.b.method() // 通过对象调用，指向前面的对象 b
+// var test = obj.b.method
+// test() // 直接调用，指向全局对象，window
 
-function m(a, b) {
-    console.log(this, a, b)
-}
+// function m(a, b) {
+//     console.log(this, a, b)
+// }
 
-var arr = [1, 2, 3]
-m.call(arr, 1, 2) // m.call() 也是调用函数，相当于m()，但是可以更改this指向，这里this指向arr
+// var arr = [1, 2, 3]
+// m.call(arr, 1, 2) // m.call() 也是调用函数，相当于m()，但是可以更改this指向，这里this指向arr
 
-m.apply(arr, [1, 2]) // m.apply()与m.call()相同，就是参数传递不一样，需要用数组包起来
+// m.apply(arr, [1, 2]) // m.apply()与m.call()相同，就是参数传递不一样，需要用数组包起来
+
+// // 练习1
+// var person = {
+//     name: 'monica',
+//     age: 17,
+//     addr: '192.168.',
+//     tel: '157777777',
+//     sayHi: function () {
+//         // 完成该方法，打印姓名和年龄
+//         console.log('完成该方法，打印姓名和年龄', this.name, this.age)
+//     }
+// }
+
+// person.sayHi() // 调用sayHi方法，打印姓名和年龄 monica 17
+
+// // 练习2
+// // 为所有对象添加方法print，打印对象的键值对
+
+// Object.prototype.printKeyValue = function () {
+//     for (let key in this) {
+//         // 属性 in 对象 ==> 判断属性名是否在对象自身及其隐式原型上
+//         if (key in this) {
+//             if (this.hasOwnProperty(key)) {
+//                 console.log(key + ':' + this[key])
+//             }
+//         }
+//     }
+// }
+
+// person.printKeyValue()
+
+// 练习3
+// 能否不使用new，通过User函数创建对象（不能更改User函数）
+// 解：call aplly 调用函数，改变this的指向来调用
+
+// function User(firstName, lastName) {
+//     this.firstName = firstName
+//     this.lastName = lastName
+//     this.fullName = firstName + lastName
+// }
+
+// const obj = {}
+// User.call(obj,'shen', 'su yi')
+// console.log(obj);
+
+console.log('原型链================================================================================')
+
+/*
+所有的对象都是通过new来创建的
+*/
+// function User(name, age) {
+//     this.name = name
+//     this.age = age
+// }
+// var u1 = new User('南宫', 18) // 对象 u1 通过 new User 创建
+// var u2 = { // 对象 u2 通过new Object 创建
+//     name: '小明',
+//     age: '18'
+// }
+
+// // 等效于
+// var u2 = new Object()
+// u2.name = '小明',
+// u2.age = 18
+
+
+/*
+    上述代码形成原型图
+        原型 <----------- prototype -------- User
+         ↑                                    |
+         |                                    |
+     __proto__                                |
+         |                                    |
+         |                                    |
+         u1 <------------- new ----------------
+ 
+
+         
+        原型 <----------- prototype -------- Object
+         ↑                                    |
+         |                                    |
+     __proto__                                |
+         |                                    |
+         |                                    |
+         u2 <-------------- new ---------------
+
+    原型对象本身也是一个对象，默认情况下，是通过 new Object 创建的，因此，上面两副原型图是可以发生关联的
+    即原型链：
+
+        null
+         ↑                                    
+         |                                    
+         |                                    
+        原型 <----------- prototype -------- Object
+         ↑                                    |
+         |                                    |
+     __proto__        --------- new -----------
+         |            |                        
+         |            |                       
+        原型 <----------- prototype -------- User
+         ↑                                    |
+         |                                    |
+     __proto__                                |
+         |                                    |
+         |                                    |
+         u1 <-------------- new ---------------
+
+    Object.prototype.__proto__ 比较特殊，它固定指向null
+    由此可见，u1 的隐式原型形成了一个链条，称之为原型链
+        u1 --- __proto__ ---> User的原型 --- __proto__ ---> Object的原型 --- __proto__ ---> null
+    当读取对象成员时，会先看对象自身是否有该成员，如果没有，就依次在其原型链上查找
+
+*/
