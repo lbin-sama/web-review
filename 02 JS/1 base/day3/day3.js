@@ -332,7 +332,6 @@ console.log('原型链==========================================================
 // u2.name = '小明',
 // u2.age = 18
 
-
 /*
     上述代码形成原型图
         原型 <----------- prototype -------- User
@@ -380,3 +379,127 @@ console.log('原型链==========================================================
     当读取对象成员时，会先看对象自身是否有该成员，如果没有，就依次在其原型链上查找
 
 */
+
+// 练习1
+// toString方法属于Object.prototype，它会把对象转换为字符串的形式 [object Object]
+// 这种格式并非每个对象想要的
+// 1. 解释数组的toString为什么能得到不同的格式
+// 2. 如果自己的构造函数希望改变toString，如何改变
+// 解
+
+// 1 数组是一个特殊的对象，它是通过new Array(1,2,3)来的，与普通对象原型不同，在它的原型原型上重写toString方法即可得到不同的格式
+// let arr = [1, 2, 3]
+// Array.prototype.toString = function () {
+//     let param = ''
+//     for (const key in this) {
+//         if (this.hasOwnProperty(key)) {
+//             param += key + '=' + this[key] + "\n"
+//         }
+//     }
+//     return param
+// }
+// console.log(arr.toString())
+
+// 2 通过 构造函数的原型改变
+
+// function User(name, age) {
+//     this.name = name
+//     this.age = age
+// }
+
+// var obj = new User('ssy', 18)
+
+// console.log(obj.toString())
+
+// // 重写构造函数的toString（）
+
+// User.prototype.toString = function () {
+//     let param = ''
+//     for (const key in this) {
+//         if (this.hasOwnProperty(key)) {
+//             param += key + ': ' + this[key] + '\n'
+//         }
+//     }
+//     return param
+// }
+// console.log(obj.toString())
+
+// 练习2
+// 判断arr1和arr2是否是真数组
+// var arr1 = [1, 2, 3, 4]; // 真数组
+// // 类数组(伪数组)
+// var arr2 = {
+//   0: 1,
+//   1: 2,
+//   2: 3,
+//   3: 4,
+//   length: 4,
+// };
+
+// console.log(arr1 instanceof Array, arr2 instanceof Array) // 1
+// console.log(Object.getPrototypeOf(arr1) === Array.prototype) // 2
+
+//练习3
+// 创建一个没有隐式原型的用户对象，随意添加一些属性
+
+// 1
+// var obj = {
+//     a: 1,
+//     b: 2
+// }
+// obj.__proto__ = null  // 不推荐
+// console.log(obj, obj.__proto__)
+
+// 2 Object.create
+// var obj = Object.create(null)  // Object.create传入隐式原型指向的东西，这里传null，故Obj隐式原型为null
+// obj.a = 322
+// obj.b = 333
+
+// console.log(obj, obj.__proto__)
+
+// 3 Object.create
+
+// var obj = { a: 4, h: 6 }
+// Object.setPrototypeOf(obj, null) // 显而易见，设置某个对象的隐式原型为，null
+
+// console.log(obj, obj.__proto__)
+
+
+// 面试1
+// 下面的代码输出什么？
+// function User() {}
+// User.prototype.sayHello = function () {};
+
+// var u1 = new User();
+// var u2 = new User();
+
+// console.log(u1.sayHello === u2.sayHello) // true
+// console.log(User.prototype === Function.prototype); // false
+// console.log(User.__proto__ === Function.prototype); // true
+// console.log(User.__proto__ === Function.__proto__); // true
+// console.log(u1.__proto__ === u2.__proto__); // true
+// console.log(u1.__proto__ === User.__proto__); // false
+// console.log(Function.__proto__ === Object.__proto__) // true
+// console.log(Function.prototype.__proto__ === Object.prototype.__proto__) // false
+// console.log(Function.prototype.__proto__ === Object.prototype); // true
+
+
+
+// 面试2
+// 下面的代码输出什么？（字节）
+// console.log({} instanceof Object) // true
+// console.log({}.toString instanceof Function); // true
+// console.log(Object instanceof Function);  // true
+// console.log(Function instanceof Object); // true
+
+// // 面试3
+// // 下面的代码输出什么？（京东）
+// Function.prototype.a = 1;
+// Object.prototype.b = 2;
+
+// function A() {}
+
+// var a = new A();
+
+// console.log(a.a, a.b); // undefined 2
+// console.log(A.a, A.b); // 1 2
