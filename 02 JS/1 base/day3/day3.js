@@ -464,7 +464,6 @@ console.log('原型链==========================================================
 
 // console.log(obj, obj.__proto__)
 
-
 // 面试1
 // 下面的代码输出什么？
 // function User() {}
@@ -473,24 +472,39 @@ console.log('原型链==========================================================
 // var u1 = new User();
 // var u2 = new User();
 
-// console.log(u1.sayHello === u2.sayHello) // true
-// console.log(User.prototype === Function.prototype); // false
-// console.log(User.__proto__ === Function.prototype); // true
-// console.log(User.__proto__ === Function.__proto__); // true
-// console.log(u1.__proto__ === u2.__proto__); // true
-// console.log(u1.__proto__ === User.__proto__); // false
-// console.log(Function.__proto__ === Object.__proto__) // true
-// console.log(Function.prototype.__proto__ === Object.prototype.__proto__) // false
-// console.log(Function.prototype.__proto__ === Object.prototype); // true
+// console.log(u1.sayHello === u2.sayHello)
+// console.log(User.prototype === Function.prototype);
+// console.log(User.__proto__ === Function.prototype);
+// console.log(User.__proto__ === Function.__proto__);
+// console.log(u1.__proto__ === u2.__proto__);
+// console.log(u1.__proto__ === User.__proto__);
+// console.log(Function.__proto__ === Object.__proto__)
+// console.log(Function.prototype.__proto__ === Object.prototype.__proto__)
+// console.log(Function.prototype.__proto__ === Object.prototype);
 
-
+// answer
+// true
+// false
+// true
+// true
+// true
+// false
+// true
+// false
+// true
 
 // 面试2
 // 下面的代码输出什么？（字节）
-// console.log({} instanceof Object) // true
-// console.log({}.toString instanceof Function); // true
-// console.log(Object instanceof Function);  // true
-// console.log(Function instanceof Object); // true
+// console.log({} instanceof Object)
+// console.log({}.toString instanceof Function);
+// console.log(Object instanceof Function);
+// console.log(Function instanceof Object);
+
+// answer
+// true
+// true
+// true
+// true
 
 // // 面试3
 // // 下面的代码输出什么？（京东）
@@ -501,5 +515,77 @@ console.log('原型链==========================================================
 
 // var a = new A();
 
-// console.log(a.a, a.b); // undefined 2
-// console.log(A.a, A.b); // 1 2
+// console.log(a.a, a.b);
+// console.log(A.a, A.b);
+
+// answer
+// undefined 2
+// 1 2
+
+console.log('继承================================================================================')
+
+/*
+继承
+    单根性：子类最多只有一个父类
+    传递性：间接父类的成员会传递到子类中
+*/
+
+/*
+视频会员系统
+    普通会员
+        属性：用户名，密码
+        方法：观看免费视频
+    VIP会员
+        属性：普通会员的所有属性，会员到期时间
+        方法：普通会员的所有方法，观看付费视频
+
+使用构造函数满足上述会员
+*/
+
+// 方法一
+// function User(username, password) {
+//     this.username = username
+//     this.password = password
+// }
+
+// User.prototype.playFreeVideo = function () {
+//     console.log('观看免费视频')
+// }
+
+// function VipUser(username, password, time) {
+//     this.username = username
+//     this.password = password
+//     this.time = time
+// }
+
+// VipUser.prototype.playFreeVideo = function () {
+//     console.log('观看免费视频')
+// }
+// VipUser.prototype.playVIPVideo = function () {
+//     console.log('观看付费视频')
+// }
+
+// 方法2
+
+// function VipUser(username, password, time) {
+//     User.call(this, username, password)
+//     this.time = time
+// }
+
+// // 设置隐式原型，原本VipUser原型的隐式原型指向Object原型，这里调整方向
+// Object.setPrototypeOf(VipUser.prototype, User.prototype)
+
+// VipUser.prototype.playVIPVideo = function () {
+//     console.log('观看付费视频')
+// }
+
+// var vip1 = new VipUser('zs', 123, 3000)
+
+// vip1.playFreeVideo()
+// vip1.playVIPVideo()
+
+// VipUser.prototype.playFreeVideo = function () {
+//     console.log('去掉广告的免费视频');
+// }
+// vip1.playFreeVideo()
+
