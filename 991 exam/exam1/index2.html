@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var files = [
+            {
+                name: '001.zip',
+                size: 1024
+            },
+            {
+                name: '002.txt',
+                size: 1024
+            },
+            {
+                name: '003.jpg',
+                size: 1024
+            },
+            {
+                name: '004.png',
+                size: 1024
+            },
+            {
+                name: '005.mp4',
+                size: 1024
+            },
+            {
+                name: '006.gif',
+                size: 1024
+            },
+            {
+                name: '007.bmp',
+                size: 1024
+            },
+            {
+                name: '008.webp',
+                size: 1024
+            },
+            {
+                name: '009.png',
+                size: 1024
+            },
+            {
+                name: '010.jpeg',
+                size: 1024
+            },
+            {
+                name: '011.jpg',
+                size: 1024
+            }
+        ]
+
+        console.log("🚀 ~ files:", files)
+        function getImgFiles(files) {
+            var imgSuffixs = ['gif', 'jpg', 'png', 'bmp', 'jpeg', 'webp']
+            var list = []
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i]
+                var suffix = file.name.split('.')[1]
+                if (imgSuffixs.includes(suffix)) {
+                    list.push(file)
+                }
+            }
+            return list
+        }
+
+
+        console.log("🚀 ~ getImgFiles(files):", getImgFiles(files))
+    </script>
+</body>
+</html>

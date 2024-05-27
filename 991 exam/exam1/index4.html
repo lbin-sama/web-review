@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: -20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dot"></div>
+    <script>
+        let dot = document.querySelector('.dot');
+        
+        window.onmousemove = function() {
+            let x = event.clientX;
+            let y = event.clientY;
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+        }
+    </script>
+</body>
+</html>
