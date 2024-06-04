@@ -25,54 +25,62 @@
     var right = document.querySelector('.banner-pointer-right')
     var img = document.querySelector('.banner-cover img')
     var aLink = document.querySelector('.banner-cover')
+    var bannerDots = document.querySelector('.banner-dots')
     var dots = document.querySelectorAll('.banner-dots .fl')
     dots = Array.from(dots)
 
     // banner-dots-selected
-    const leftClick = (e)=> {
-      console.log('left')
-      if (index === 0) {
-          index = 2
-      } else {
-          index--
-      }
+    const leftClick = (e) => {
+        console.log('left')
+        if (index === 0) {
+            index = datas.length - 1
+        } else {
+            index--
+        }
 
-      dots.forEach((dot, i) => {
-          dot.classList.remove('banner-dots-selected')
-          if (i === index) {
-              dot.classList.add('banner-dots-selected')
-          }
-      })
+        dots.forEach((dot, i) => {
+            dot.classList.remove('banner-dots-selected')
+            if (i === index) {
+                dot.classList.add('banner-dots-selected')
+            }
+        })
 
-      img.src = datas[index].img
-      aLink.href = datas[index].link
-  }
+        img.src = datas[index].img
+        aLink.href = datas[index].link
+    }
 
-  const rightClick = (e)=> {
-      console.log('right')
-      if (index === 2) {
-          index = 0
-      } else {
-          index++
-      }
+    const rightClick = (e) => {
+        console.log('right')
+        if (index === datas.length - 1) {
+            index = 0
+        } else {
+            index++
+        }
 
-      dots.forEach((dot, i) => {
-          dot.classList.remove('banner-dots-selected')
-          if (i === index) {
-              dot.classList.add('banner-dots-selected')
-          }
-      })
+        dots.forEach((dot, i) => {
+            dot.classList.remove('banner-dots-selected')
+            if (i === index) {
+                dot.classList.add('banner-dots-selected')
+            }
+        })
 
-      img.src = datas[index].img
-      aLink.href = datas[index].link
-  }
-  
+        img.src = datas[index].img
+        aLink.href = datas[index].link
+    }
+
     left.addEventListener('click', leftClick)
     right.addEventListener('click', rightClick)
 
+    const initDot = () => {
+        var dotStr = ''
+        datas.forEach((dot, i) => {
+            dotStr += '<span class="fl"></span>'
+        })
+        bannerDots.innerHTML = dotStr
+        dots = document.querySelectorAll('.banner-dots .fl')
+        dots = Array.from(dots)
+    }
 
-
-    console.log('111111', img, dots)
-
+    initDot()
     rightClick()
 })()
