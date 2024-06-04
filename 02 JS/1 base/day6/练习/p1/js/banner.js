@@ -29,15 +29,18 @@
     var dots = document.querySelectorAll('.banner-dots .fl')
     dots = Array.from(dots)
 
-    // banner-dots-selected
-    const leftClick = (e) => {
-        console.log('left')
-        if (index === 0) {
-            index = datas.length - 1
-        } else {
-            index--
-        }
+    bannerDots.onclick = function (e) {
+        if (e.target.tagName === 'SPAN') {
+            var dot = Array.from(bannerDots.children)
 
+            // 获取当前点击的按钮在父元素中的索引
+            var i = dot.indexOf(e.target)
+            change(i)
+        }
+    }
+
+    function change(val) {
+        index = val
         dots.forEach((dot, i) => {
             dot.classList.remove('banner-dots-selected')
             if (i === index) {
@@ -49,6 +52,18 @@
         aLink.href = datas[index].link
     }
 
+    // banner-dots-selected
+    const leftClick = (e) => {
+        console.log('left')
+        if (index === 0) {
+            index = datas.length - 1
+        } else {
+            index--
+        }
+
+        change(index)
+    }
+
     const rightClick = (e) => {
         console.log('right')
         if (index === datas.length - 1) {
@@ -57,15 +72,7 @@
             index++
         }
 
-        dots.forEach((dot, i) => {
-            dot.classList.remove('banner-dots-selected')
-            if (i === index) {
-                dot.classList.add('banner-dots-selected')
-            }
-        })
-
-        img.src = datas[index].img
-        aLink.href = datas[index].link
+        change(index)
     }
 
     left.addEventListener('click', leftClick)
