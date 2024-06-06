@@ -38,3 +38,46 @@
 
 
 */
+
+/*
+    skill: 2--------------------------------
+    正则
+    创建正则对象
+        // 构造函数
+        new RegExp('规则', '标识')
+        // 字面量书写
+        /规则/标识
+
+        
+
+        // 构造, 标识可传可不传，有几种，如i，i标识不区分大小写，如g全局匹配，所有的，m，多行匹配
+        var reg = new RegExp('a') // 是否包含a
+        console.log(reg.test('12321za434'))
+        
+        var reg = new RegExp('a', 'i') // 是否包含a
+        console.log(reg.test('12321zA434'))
+
+        
+        // 字变量
+        var reg = /a/i
+        console.log(reg.test('12321zA434'))
+
+        替换可以正则匹配
+        
+        var reg = /a/g
+        var str = 'fdsf123qwefafdffafdaa'
+        var newStr = str.replace(reg, '111')
+        console.log(newStr);
+
+        // 写法2
+        var newStr = str.replace(reg, function (s) {
+            return '111'
+        })
+*/
+
+var reg = /a/g
+var str = 'fdsf123qwefafdffafdaa'
+var newStr = str.replace(reg, function (s) {
+    return '111'
+})
+console.log(newStr)
