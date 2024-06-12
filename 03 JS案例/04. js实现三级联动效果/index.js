@@ -16,10 +16,10 @@ function initProvince() {
 }
 
 function initCity() {
-  cityDom.options[0].selected = true
+    cityDom.options[0].selected = true
 }
 function initSchool() {
-  schoolDom.options[0].selected = true
+    schoolDom.options[0].selected = true
 }
 
 // 初始化
@@ -42,12 +42,13 @@ provinceDom.addEventListener('change', function (e) {
     }
 
     initCity()
+    changeCity()
 })
 
 cityDom.addEventListener('change', changeCity)
 
 function changeCity() {
-  var val = this.options[this.selectedIndex].value
+    var val = cityDom.options[cityDom.selectedIndex].value
     var citySchool = allschool[val]
     schoolDom.innerHTML = ''
 
