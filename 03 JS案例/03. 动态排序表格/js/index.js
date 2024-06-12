@@ -24,8 +24,16 @@ var list = domList.map((item, index) => {
 })
 
 checkAllDom.addEventListener('change', function (e) {
-    list.forEach((item) => {
+    list.forEach((item, index) => {
         item.checkDom.checked = this.checked
+        var val = +item.checkDom.getAttribute('index')
+        if (this.checked) {
+          if (!checkList.includes(val)) {
+            checkList.push(val)
+          }
+        } else {
+          checkList = checkList.filter((item) => item!== val)
+        }
     })
 })
 
