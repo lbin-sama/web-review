@@ -42,39 +42,37 @@ menus.addEventListener('click', function (e) {
 })
 
 sImg.addEventListener('mousemove', function (e) {
-  mask.style.opacity = 1
-  lImg.style.opacity = 1
+    mask.style.opacity = 1
+    lImg.style.opacity = 1
 
-
-  
     // 根据鼠标位置计算遮罩层的位置
-    var left = e.clientX - this.offsetLeft -( mask.offsetWidth / 2);
+    var left = e.clientX - this.offsetLeft - mask.offsetWidth / 2
     // 同理
-    var top = e.clientY - this.offsetTop - mask.offsetHeight / 2;
+    var top = e.clientY - this.offsetTop - mask.offsetHeight / 2
 
     // 边界条件
     if (left <= 0) {
-      left = 0;
+        left = 0
     }
     if (top <= 0) {
-      top = 0;
+        top = 0
     }
     if (left >= this.offsetWidth - mask.offsetWidth) {
-      left = this.offsetWidth - mask.offsetWidth
+        left = this.offsetWidth - mask.offsetWidth
     }
     if (top >= this.offsetHeight - mask.offsetHeight) {
-      top = this.offsetHeight - mask.offsetHeight
+        top = this.offsetHeight - mask.offsetHeight
     }
     // 根据top和left调整mask的位置
-    mask.style.left = left + 'px';
-    mask.style.top = top + 'px';
+    mask.style.left = left + 'px'
+    mask.style.top = top + 'px'
 
     // 根据top 和 left，修改大图的位置，background-position-x
-    lImg.style.backgroundPositionX = -left + 'px';
-    lImg.style.backgroundPositionY = -top + 'px';
+    lImg.style.backgroundPositionX = -left + 'px'
+    lImg.style.backgroundPositionY = -top + 'px'
 })
 
 sImg.addEventListener('mouseleave', function (e) {
-  mask.style.opacity = 0
-  lImg.style.opacity = 0
+    mask.style.opacity = 0
+    lImg.style.opacity = 0
 })
