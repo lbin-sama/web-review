@@ -88,7 +88,7 @@ function change(index) {
         doms.indicator.children[activeIndex].classList.remove('active')
         doms.indicator.children[i].classList.add('active')
         activeIndex = i
-    }, 100)
+    })
 }
 
 function stop() {
