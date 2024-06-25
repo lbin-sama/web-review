@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .container {
@@ -123,4 +124,69 @@ body {
 .content {
     margin-top: 8px;
     color: rgba(0, 0, 0, 0.6);
+}
+
+.skills {
+    padding: 20px 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 160px);
+    gap: 20px 100px;
+}
+
+
+.skill-item {
+    background-color: #f0fdff;
+    border-radius: 50%;
+    border: 6px solid #c3f1f8;
+    position: relative;
+    --propress-val: 0%;
+}
+
+.skill-item::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    background: conic-gradient(#0ea5e9 var(--propress-val), #c3f1f8 calc(100% - var(--propress-val)));
+    border-radius: 50%;
+}
+
+.skill-item div {
+    position: relative;
+    background-color: #f0fdff;
+    border-radius: 50%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.project-title{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.msg-item{
+    display: flex;
+    margin: 8px 0;
+}
+
+.msg-item .project-label {
+    margin-right: 20px;
+}
+
+.project-detail {
+    flex: 1;
+}
+
+.msg-item a {
+    color: skyblue;
+    cursor: pointer;
 }
