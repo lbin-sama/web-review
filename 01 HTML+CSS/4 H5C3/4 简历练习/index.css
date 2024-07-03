@@ -1,0 +1,192 @@
+body {
+    background-color: black;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.container {
+    position: relative;
+    width: 800px;
+    padding: 50px;
+    background-color: #fff;
+    margin: 80px auto;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.container::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #22d3ee, #0ea5e9);
+    border-radius: 15px;
+    transform: rotate(-3deg);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-msg {
+    flex: 1;
+}
+.user-msg .name {
+    margin-bottom: 10px;
+}
+
+.user-msg .name span:first-of-type {
+    font-weight: bold;
+    font-size: xx-large;
+}
+.user-msg .name span:last-of-type {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.detail-box {
+    display: grid;
+    grid-template-rows: repeat(3, 30px);
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: column;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+}
+.detail-label {
+    margin-right: 10px;
+    color: #777;
+}
+.detail-item a {
+    color: skyblue;
+}
+
+.detail-item .label2 {
+    width: 70px;
+    text-align: right;
+}
+
+.experience-box {
+    margin-top: 20px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: xx-large;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 8px;
+}
+
+.experience-inner {
+    padding: 30px 20px;
+    border-left: 1px solid #0ea5e9;
+}
+
+.experience-item {
+    margin-bottom: 20px;
+    position: relative;
+}
+.experience-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -31px;
+    width: 20px;
+    height: 20px;
+    background: #0ea5e9;
+    border-radius: 50%;
+}
+
+.label {
+    color: #aaa;
+}
+
+.label span {
+    color: #000;
+    margin: 0 5px;
+}
+
+.content {
+    margin-top: 8px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.skills {
+    padding: 20px 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 160px);
+    gap: 20px 100px;
+}
+
+
+.skill-item {
+    background-color: #f0fdff;
+    border-radius: 50%;
+    border: 6px solid #c3f1f8;
+    position: relative;
+    --propress-val: 0%;
+}
+
+.skill-item::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    background: conic-gradient(#0ea5e9 var(--propress-val), #c3f1f8 calc(100% - var(--propress-val)));
+    border-radius: 50%;
+}
+
+.skill-item div {
+    position: relative;
+    background-color: #f0fdff;
+    border-radius: 50%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.project-title{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.msg-item{
+    display: flex;
+    margin: 8px 0;
+}
+
+.msg-item .project-label {
+    margin-right: 20px;
+}
+
+.project-detail {
+    flex: 1;
+}
+
+.msg-item a {
+    color: skyblue;
+    cursor: pointer;
+}

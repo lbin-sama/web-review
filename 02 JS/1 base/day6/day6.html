@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                background-color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <button>按钮1</button>
+            <button>按钮2</button>
+            <button>按钮3</button>
+            <button>按钮4</button>
+            <button>按钮5</button>
+            <button>按钮6</button>
+            <button>按钮7</button>
+            <button>按钮8</button>
+            <button>按钮9</button>
+            <button>按钮10</button>
+        </div>
+
+        <script>
+            /**
+             * 给按钮注册事件
+             * 方法1：事件委托
+             * 
+             * */
+            // 事件委托，与其每个按钮都注册事件，不如给父元素注册，判断点击的是哪个按钮，就触发什么事件
+            // var container = document.querySelector('.container')
+            // container.onclick = function(e) {
+            //     if (e.target.tagName === 'BUTTON') {
+            //         // container.children 伪数组HTMLCollection
+            //         // 转真数组
+            //         var btns = Array.from(container.children)
+
+            //         // 获取当前点击的按钮在父元素中的索引
+            //         var i = btns.indexOf(e.target)
+            //         console.log(i)
+            //     }
+            // }
+
+            /**
+             * 方法2： 循环中注册事件
+             * */
+
+             var btns = document.querySelectorAll('button')
+             for (var i = 0; i < btns.length; i++) {
+                (function(i) {
+                 btns[i].onclick = function(e) {
+                     console.log(i);
+                 }
+                })(i)
+             }
+
+        </script>
+    </body>
+</html>
