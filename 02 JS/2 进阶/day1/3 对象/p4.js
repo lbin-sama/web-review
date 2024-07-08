@@ -7,8 +7,7 @@ const user = {
     sex: 'female'
 }
 
-for (let key of Object.keys(user)) {
-    let value
+for (let [key, value] of Object.entries(user)) {
     Object.defineProperty(user, key, {
         get() {
             console.log(`正在读取${key}属性，值为${value}`)
